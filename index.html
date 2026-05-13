@@ -80,8 +80,9 @@
     .nav-links a:hover { color: var(--text); }
 
     .nav-cta {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      color: #111 !important;
+      background: linear-gradient(135deg, #9b6dff 0%, #4da6ff 100%);
+      color: #fff !important;
+      box-shadow: 0 4px 16px rgba(155,109,255,0.45);
       padding: 10px 22px;
       border-radius: 6px;
       font-weight: 700 !important;
@@ -109,8 +110,10 @@
     .btn:active { transform: translateY(0); }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      color: #111;
+      background: linear-gradient(135deg, #9b6dff 0%, #4da6ff 100%);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 4px 32px rgba(155,109,255,0.55), 0 0 0 1px rgba(155,109,255,0.2);
     }
 
     .btn-outline {
@@ -146,18 +149,19 @@
 
     .hero-glow {
       position: absolute;
-      top: -200px; left: 50%;
-      transform: translateX(-50%);
-      width: 800px; height: 600px;
-      background: radial-gradient(ellipse, rgba(196,181,253,0.08) 0%, rgba(147,197,253,0.05) 60%, transparent 100%);
+      inset: 0;
+      background:
+        radial-gradient(ellipse 140% 70% at 50% 0%, rgba(155,109,255,0.22) 0%, transparent 65%),
+        radial-gradient(ellipse 80% 50% at 0% 60%, rgba(77,166,255,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 50% at 100% 60%, rgba(155,109,255,0.1) 0%, transparent 60%);
       pointer-events: none;
     }
 
     .hero-tag {
       display: inline-block;
-      background: rgba(196,181,253,0.12);
-      color: var(--accent);
-      border: 1px solid rgba(196,181,253,0.3);
+      background: rgba(155,109,255,0.18);
+      color: #b197fc;
+      border: 1px solid rgba(155,109,255,0.45);
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 1.5px;
@@ -181,7 +185,7 @@
     .hero-sub {
       font-family: 'Disor', cursive;
       font-size: clamp(24px, 3.5vw, 42px);
-      color: var(--muted);
+      color: rgba(255,255,255,0.88);
       margin-top: 0;
       margin-bottom: 0;
       font-weight: normal;
@@ -191,7 +195,7 @@
       max-width: 560px;
       font-size: 17px;
       line-height: 1.7;
-      color: var(--muted);
+      color: rgba(255,255,255,0.78);
       margin-bottom: 48px;
     }
 
@@ -638,6 +642,55 @@
     .yt-replay-btn:hover { border-color: rgba(255,255,255,0.5); color: #f0ece4; }
 
     .yt-poster.hidden { opacity: 0; pointer-events: none; }
+
+    /* ── INQUIRY MODAL ── */
+    .inquiry-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: #0d0d0d;
+      flex-direction: column;
+    }
+
+    .inquiry-modal.open { display: flex; }
+
+    .modal-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .modal-topbar-logo {
+      font-family: 'Disor', cursive;
+      font-size: 20px;
+      font-weight: normal;
+      color: var(--text);
+    }
+
+    .modal-close {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      font-size: 20px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      line-height: 1;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.15); }
+
+    .modal-iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -648,7 +701,7 @@
   <ul class="nav-links">
     <li><a href="#examples">Work</a></li>
     <li><a href="#about">Philosophy</a></li>
-    <li><a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="nav-cta">Get Started</a></li>
+    <li><a href="#" onclick="openInquiry(); return false;" class="nav-cta">Get Started</a></li>
   </ul>
 </nav>
 
@@ -668,7 +721,7 @@
   </p>
 
   <div class="hero-actions">
-    <a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="btn btn-primary">Start Your Inquiry</a>
+    <a href="#" onclick="openInquiry(); return false;" class="btn btn-primary">Start Your Inquiry</a>
     <a href="#examples" class="btn btn-outline">See the Work</a>
   </div>
 
@@ -726,7 +779,7 @@
             <div class="yt-iframe-wrap" id="iframe-wrap-1"></div>
             <div class="yt-end-screen" id="end-screen-1">
               <div class="yt-end-title">Want ads like this?</div>
-              <a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="btn btn-primary">Start Your Inquiry</a>
+              <a href="#" onclick="openInquiry(); return false;" class="btn btn-primary">Start Your Inquiry</a>
               <button class="yt-replay-btn" onclick="replayPlayer(1)">&#8635; Watch Again</button>
             </div>
           </div>
@@ -752,7 +805,7 @@
             <div class="yt-iframe-wrap" id="iframe-wrap-2"></div>
             <div class="yt-end-screen" id="end-screen-2">
               <div class="yt-end-title">Want ads like this?</div>
-              <a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="btn btn-primary">Start Your Inquiry</a>
+              <a href="#" onclick="openInquiry(); return false;" class="btn btn-primary">Start Your Inquiry</a>
               <button class="yt-replay-btn" onclick="replayPlayer(2)">&#8635; Watch Again</button>
             </div>
           </div>
@@ -778,7 +831,7 @@
             <div class="yt-iframe-wrap" id="iframe-wrap-3"></div>
             <div class="yt-end-screen" id="end-screen-3">
               <div class="yt-end-title">Want ads like this?</div>
-              <a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="btn btn-primary">Start Your Inquiry</a>
+              <a href="#" onclick="openInquiry(); return false;" class="btn btn-primary">Start Your Inquiry</a>
               <button class="yt-replay-btn" onclick="replayPlayer(3)">&#8635; Watch Again</button>
             </div>
           </div>
@@ -792,7 +845,7 @@
     </div>
 
     <div class="examples-cta">
-      <a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="btn btn-primary">I Want Ads Like These</a>
+      <a href="#" onclick="openInquiry(); return false;" class="btn btn-primary">I Want Ads Like These</a>
     </div>
   </div>
 </section>
@@ -846,7 +899,7 @@
         </p>
 
         <div class="about-cta">
-          <a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="btn btn-primary">Work With Me</a>
+          <a href="#" onclick="openInquiry(); return false;" class="btn btn-primary">Work With Me</a>
         </div>
       </div>
     </div>
@@ -866,7 +919,7 @@
         I only take on brands I can do great work for.
       </p>
       <div class="inquiry-actions">
-        <a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="btn btn-primary">Start Your Inquiry</a>
+        <a href="#" onclick="openInquiry(); return false;" class="btn btn-primary">Start Your Inquiry</a>
         <a href="#examples" class="btn btn-outline">See More Work First</a>
       </div>
     </div>
@@ -936,5 +989,24 @@
   }
 </script>
 
+
+<div class="inquiry-modal" id="inquiryModal">
+  <div class="modal-topbar">
+    <span class="modal-topbar-logo">Ads That Print</span>
+    <button class="modal-close" onclick="closeInquiry()">&#x2715;</button>
+  </div>
+  <iframe class="modal-iframe" src="https://premiumads.getformly.com/f/152RVN" allow="camera; microphone"></iframe>
+</div>
+
+<script>
+  function openInquiry() {
+    document.getElementById('inquiryModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeInquiry() {
+    document.getElementById('inquiryModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
 </body>
 </html>
