@@ -150,6 +150,7 @@
     .hero-glow {
       position: absolute;
       inset: 0;
+      z-index: 0;
       background:
         radial-gradient(ellipse 140% 70% at 50% 0%, rgba(155,109,255,0.22) 0%, transparent 65%),
         radial-gradient(ellipse 80% 50% at 0% 60%, rgba(77,166,255,0.1) 0%, transparent 60%),
@@ -158,6 +159,8 @@
     }
 
     .hero-tag {
+      position: relative;
+      z-index: 1;
       display: inline-block;
       background: rgba(155,109,255,0.18);
       color: #b197fc;
@@ -172,6 +175,8 @@
     }
 
     .hero-headline {
+      position: relative;
+      z-index: 1;
       font-family: 'Disor', cursive;
       font-size: clamp(52px, 8vw, 110px);
       font-weight: normal;
@@ -183,15 +188,19 @@
     }
 
     .hero-sub {
+      position: relative;
+      z-index: 1;
       font-family: 'Disor', cursive;
       font-size: clamp(24px, 3.5vw, 42px);
-      color: rgba(255,255,255,0.88);
+      color: #ffffff;
       margin-top: 0;
       margin-bottom: 0;
       font-weight: normal;
     }
 
     .hero-body {
+      position: relative;
+      z-index: 1;
       max-width: 560px;
       font-size: 17px;
       line-height: 1.7;
@@ -200,6 +209,8 @@
     }
 
     .hero-actions {
+      position: relative;
+      z-index: 1;
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
@@ -208,6 +219,8 @@
 
     /* Phone mockup strip */
     .phones {
+      position: relative;
+      z-index: 1;
       display: flex;
       gap: 20px;
       align-items: flex-end;
@@ -525,7 +538,9 @@
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
 
-      .phones { gap: 10px; }
+      .phones {
+      position: relative;
+      z-index: 1; gap: 10px; }
       .phone { width: 110px; height: 196px; border-radius: 18px; }
       .phone:nth-child(2) { width: 130px; height: 230px; }
 
