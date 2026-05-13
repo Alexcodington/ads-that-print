@@ -590,8 +590,28 @@
     }
 
     .yt-iframe-wrap iframe {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       border: none;
+    }
+
+    .yt-mask-top, .yt-mask-bottom {
+      position: absolute;
+      left: 0; right: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .yt-mask-top {
+      top: 0;
+      height: 72px;
+      background: #0d0d0d;
+    }
+
+    .yt-mask-bottom {
+      bottom: 0;
+      height: 68px;
+      background: #0d0d0d;
     }
 
     .yt-end-screen {
@@ -723,7 +743,7 @@
                 </button>
               </div>
             </div>
-            <div class="yt-iframe-wrap" id="iframe-wrap-1"></div>
+            <div class="yt-iframe-wrap" id="iframe-wrap-1"><div class="yt-mask-top"></div><div class="yt-mask-bottom"></div></div>
             <div class="yt-end-screen" id="end-screen-1">
               <div class="yt-end-title">Want ads like this?</div>
               <a href="https://premiumads.getformly.com/f/152RVN" target="_blank" class="btn btn-primary">Start Your Inquiry</a>
@@ -864,7 +884,9 @@
     iframe.allow = 'autoplay; encrypted-media';
     iframe.allowFullscreen = true;
     iframe.id = 'yt-iframe-' + idx;
-    wrap.appendChild(iframe);
+    // Insert iframe before masks so masks stay on top
+    var existingMasks = wrap.querySelectorAll('.yt-mask-top, .yt-mask-bottom');
+    wrap.insertBefore(iframe, wrap.firstChild);
 
     // Poll for video end via postMessage
     window.addEventListener('message', function(e) {
